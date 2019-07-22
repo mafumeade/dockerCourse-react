@@ -20,5 +20,8 @@ RUN npm run build
 # Define start of another phase using a FROM statement
 FROM nginx
 
+# Map the port 80 on AWS EBS
+EXPOSE 80
+
 # Copy the compiled project from the builder container 
 COPY --from=builder /app/build /usr/share/nginx/html
