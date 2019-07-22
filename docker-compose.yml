@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: . # Build from the current working directory
+      dockerfile: Dockerfile.dev # Use our development dockerfile
+    ports:
+      - "3000:3000" # Map our ports
+    volumes:
+      - /app/node_modules # Do not map the node_modules directory
+      - ./:/app # Map the working directory to /app inside the container
+  test:
+    build:
+      context: . # Build from the current working directory
+      dockerfile: Dockerfile.dev # Use our development dockerfile
+    volumes:
+      - /app/node_modules # Do not map the node_modules directory
+      - .:/app # Map the working directory to /app inside the container
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: ["npm", "run", "test"]
