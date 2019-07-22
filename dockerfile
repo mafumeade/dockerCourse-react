@@ -6,11 +6,11 @@ FROM node:alpine as builder
 WORKDIR /app
 
 # Copy our dependencies list and install them
-COPY package.json ./
+COPY package*.json ./
 RUN npm install
 
 # Copy the code
-COPY . .
+COPY ./ ./
 
 # Build the project
 RUN npm run build
