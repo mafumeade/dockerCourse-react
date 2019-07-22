@@ -12,3 +12,20 @@ before_install:
 # Commands to run build / tests
 script:
   - docker run -e CI=true mafumeade/dockercourse-react npm run test
+
+# Deployment config
+deploy:
+  provider: elasticbeanstalk
+  region: ca-central-1 # Your AWS region
+  app: "dockerCourse-react" # Name of the EBS app
+  env: "DockercourseReact-env" # Env name from EBS
+  # S3 Bucket created automatically
+  bucket_name: "elasticbeanstalk-ca-central-1-665266311692"
+  bucket_path: "dockerCourse-react" # Matches app name
+  on:
+    branch: master # Only deploy the master branch
+
+  # Fetch secret keys from env variables
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
