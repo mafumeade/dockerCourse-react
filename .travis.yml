@@ -1,0 +1,14 @@
+# Run build as root
+sudo: required
+
+# Use docker
+services:
+  - docker
+
+# Setup commands executed before build starts
+before_install:
+  - docker build -t mafumeade/dockercourse-react -f Dockerfile.dev .
+
+# Commands to run build / tests
+script:
+  - docker run -e CI=true mafumeade/dockercourse-react npm run test
